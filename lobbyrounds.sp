@@ -27,8 +27,8 @@ public Plugin:myinfo =
 new Handle:g_hCPLobby;
 new bool:g_bCPLobby;
 
-//new Handle:g_hKOTHLobby;
-//new bool:g_bKOTHLobby;
+new Handle:g_hKOTHLobby;
+new bool:g_bKOTHLobby;
 
 
 //------------------------------------------------------------------------------
@@ -42,14 +42,17 @@ public OnPluginStart()
 	g_bCPLobby = GetConVarBool(g_hCPLobby);
 	HookConVarChange(g_hCPLobby, OnConVarChange);
 	
-	/*
+	
 	g_hKOTHLobby = CreateConVar("sm_KOTHRounds", "0", "Enable KOTHLobby Rounds?(As if you'd want if off)\n0 = Disabled\n1 = Enabled", FCVAR_NONE, true, 0.0, true, 1.0);
-	g_bKOTHLobby; = GetConVarBool(g_hKOTHLobby);
+	g_bKOTHLobby = GetConVarBool(g_hKOTHLobby);
 	HookConVarChange(g_hKOTHLobby, OnConVarChange);
-	*/
+	
 	
 	RegAdminCmd("sm_CPLobby", CPCmd, ADMFLAG_GENERIC, "Turns on CPLobby Rounds");
-	//RegAdminCmd("sm_KOTHLobby", KOTHCmd, ADMFLAG_GENERIC, "Turns on KOTHLobby ROunds");	
+	RegAdminCmd("sm_cplobby", CPCmd, ADMFLAG_GENERIC, "Turns on CPLobby Rounds");  //Convenience Command
+	
+	RegAdminCmd("sm_KOTHLobby", KOTHCmd, ADMFLAG_GENERIC, "Turns on KOTHLobby ROunds");	
+	RegAdminCmd("sm_kothlobby", KOTHCmd, ADMFLAG_GENERIC, "Turns on KOTHLobby ROunds");	 //Convenience Command
 }
 
 
@@ -78,7 +81,7 @@ public OnConVarChange(Handle:convar, const String:oldValue[], const String:newVa
 		ServerCommand("mp_winlimit 5");
 	}
 
-	/*
+	
 	//Detects if KOTHLobby is Enabled
 	if(convar == g_hKOTHLobby)
 	{
@@ -95,8 +98,8 @@ public OnConVarChange(Handle:convar, const String:oldValue[], const String:newVa
 	{
         PrintToChatAll("[SM] KothLobby: Enabled");
 		ServerCommand("mp_winlimit 4");
+	}
 	
-	*/
 		
 }
 
@@ -107,8 +110,6 @@ public OnConVarChange(Handle:convar, const String:oldValue[], const String:newVa
 
 public Action:CPCmd(client, args)
 {
-	//if(IsFakeClient(client) || !IsClientConnected(client))
-		//return Plugin_Handled;
 	
 	if(args > 1)
 	{
@@ -163,11 +164,9 @@ public Action:CPCmd(client, args)
 // On !KothLobby Command
 //------------------------------------------------------------------------------
 
-/*
+
 public Action:KOTHCmd(client, args)
 {
-	//if(IsFakeClient(client) || !IsClientConnected(client))
-		//return Plugin_Handled;
 	
 	if(args > 1)
 	{
@@ -216,4 +215,3 @@ public Action:KOTHCmd(client, args)
 	
 	return Plugin_Handled;
 }
-*/
